@@ -60,7 +60,9 @@ def profile(request, username):
         'profile_owner': profile_owner,
         'feed' : all_feed
     }
-    
+    if request.method == "POST":
+        profile_owner.bio = request.POST.get('bio') 
+        profile_owner.save()
     return render(request, 'account/profile.html', context)
 
 def follow(request, username):
