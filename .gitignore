@@ -1,7 +1,7 @@
 
 .vscode
 .idea/
-feed/migrations/
+# feed/migrations/
 
 ### Django ###
 *.log

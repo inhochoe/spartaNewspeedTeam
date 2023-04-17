@@ -1,4 +1,3 @@
-
 {% load static %}
 
 <!DOCTYPE html>
@@ -102,6 +101,22 @@
       object-fit: cover;
     }
 
+    /* login */
+    .login {
+      margin-top: 200px;
+      /* margin-left: 50%;
+      transform: translateX(-50%); */
+      text-align: right;
+    }
+
+    .login p {
+      margin: 0;
+    }
+
+    .login p:nth-child(1) {
+      margin: 0 0 15px 0;
+    }
+
     /* feed_detail */
 
     .flex {
@@ -192,6 +207,20 @@
         max-width: 1200px;
       }
     }
+
+    /* profile */
+    .profile .grid img {
+      width: 220px;
+      height: 220px;
+    }
+
+    .profile-page>div:nth-child(1) {
+      flex: 0.4;
+    }
+
+    .profile-page>div:nth-child(2) {
+      flex: 0.6;
+    }
   </style>
 </head>
 
@@ -254,7 +283,7 @@
   </nav>
   {% block content %}
 
-{% endblock %}
+  {% endblock %}
 
 </body>
 
