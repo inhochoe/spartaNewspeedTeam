@@ -7,3 +7,4 @@ class UserModel(AbstractUser):
     password1 = models.CharField(max_length=20, default="10")
     password2 = models.CharField(max_length=20, default="10")
     followers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='followings')
+    bio = models.CharField(max_length=200, default="write your story")

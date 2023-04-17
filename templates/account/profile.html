@@ -1,29 +1,52 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{ profile_owner }}님의 프로필 페이지.</h1>
+<div class="container profile">
+    <h3>{{user.username}}님의 프로필 페이지.</h3>
     <hr>
-    <p>팔로잉: {{ profile_owner.followings.all|length }}</p>
-    <p>팔로워: {{ profile_owner.followers.all|length }}</p>
-    {% if request.user != profile_owner %}
-        {% if request.user in profile_owner.followers.all %}
-        <a href="{% url 'account:follow' profile_owner %}">UNFOLLOW</a>
-        {% else %}
-        <a href="{% url 'account:follow' profile_owner %}">FOLLOW</a>
-        {% endif %}
-    {% endif %}
-    <div class="container-feed">
-        <div class="grid">
-            {% for fe in feed %}
-                {% if fe.user == profile_owner %}
-                    <div class="item">
-                        <a href="/feed/detail/{{fe.id}}">
-                            <img src="{{ fe.post_image }}" alt="image" name="image" />
-                            <p>{{fe.post_title}}</p>
-                        </a>
+    <div class="profile-page flex">
+        <div class="left">
+            <p>팔로잉: {{ profile_owner.followings.all|length }}</p>
+            <p>팔로워: {{ profile_owner.followers.all|length }}</p>
+            {% if request.user != profile_owner %}
+            {% if request.user in profile_owner.followers.all %}
+            <a href="{% url 'account:follow' profile_owner %}">UNFOLLOW</a>
+            {% else %}
+            <a href="{% url 'account:follow' profile_owner %}">FOLLOW</a>
+            {% endif %}
+            {% endif %}
+        </div>
+        <div class="container-feed">
+            <form class="input-group flex" action="/account/{{user}}/" method="POST">
+                {% csrf_token %}
+                {% if user == profile_owner %}
+                    <div class="mb-3 right-form">
+                        <textarea class="form-control white-space right-textarea" id="exampleFormControlTextarea1"
+                        placeholder="내용을 입력하세요." rows="3" name="bio">{{profile_owner.bio}}</textarea>
+                    </div>
+                    <div class="right_btn">
+                        <button type="submit" class="btn btn-dark" name="button">수정</button>
+                    </div>
+                {% else %}
+                    <div class="mb-3 right-form">
+                        <textarea class="form-control white-space right-textarea" id="exampleFormControlTextarea1"
+                        placeholder="내용을 입력하세요." rows="3" name="bio" readonly="True">{{profile_owner.bio}}</textarea>
                     </div>
                 {% endif %}
-            {% endfor %}
+            </form>
+            <div class="grid">
+                {% for fe in feed %}
+                {% if fe.user == profile_owner %}
+                <div class="item">
+                    <a href="/feed/detail/{{fe.id}}">
+                        <img src="{{ fe.post_image }}" alt="image" name="image" />
+                        <p>{{fe.post_title}}</p>
+                    </a>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
         </div>
     </div>
+</div>
 {% endblock %}
